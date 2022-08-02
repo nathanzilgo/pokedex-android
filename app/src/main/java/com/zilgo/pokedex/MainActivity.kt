@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.zilgo.pokedex.domain.Pokemon
 import com.zilgo.pokedex.view.PokemonAdapter
+import com.zilgo.pokedex.viewmodel.LoadingSpinner
 import com.zilgo.pokedex.viewmodel.PokemonViewModel
 import com.zilgo.pokedex.viewmodel.PokemonViewModelFactory
 
@@ -16,10 +17,6 @@ class MainActivity : AppCompatActivity() {
 
     private val recyclerView by lazy {
         findViewById<RecyclerView>(R.id.rvPokemons)
-    }
-
-    private val loader by lazy {
-        findViewById<ProgressBar>(R.id.clLoading)
     }
 
     private val viewModel by lazy {
@@ -32,22 +29,17 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         recyclerView.visibility = View.GONE
+
         viewModel.pokemons.observe(this) {
             loadRecyclerView(it)
         }
-        viewModel.loading.observe(this) {
-            loadProgressBar(it)
-        }
-        recyclerView.visibility = View.VISIBLE
+
     }
 
     private fun loadRecyclerView(pokemons: List<Pokemon?>) {
+
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = PokemonAdapter(pokemons as List<Pokemon>)
-    }
 
-    private fun loadProgressBar(loader: ProgressBar) {
-        loader.setProgress(20)
-        loader.visibility = View.VISIBLE
     }
 }

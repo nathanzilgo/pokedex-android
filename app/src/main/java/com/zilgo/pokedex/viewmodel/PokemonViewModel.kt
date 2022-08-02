@@ -2,14 +2,17 @@ package com.zilgo.pokedex.viewmodel
 
 import android.widget.LinearLayout
 import android.widget.ProgressBar
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.zilgo.pokedex.api.PokemonRepository
 import com.zilgo.pokedex.domain.Pokemon
+import java.security.Provider
 
 class PokemonViewModel : ViewModel() {
+
     var pokemons = MutableLiveData<List<Pokemon>>()
-    var loading = MutableLiveData<ProgressBar>()
+    val loadingSpinner = LoadingSpinner()
 
     init {
         Thread(Runnable {
@@ -18,8 +21,7 @@ class PokemonViewModel : ViewModel() {
     }
 
     private fun loadPokemons() {
-
-        loading.postValue(loading.value)
+        loadingSpinner.startLoading()
         val pokemonsApiResult = PokemonRepository.listPokemons()
 
         pokemonsApiResult?.results?.let {
@@ -39,9 +41,10 @@ class PokemonViewModel : ViewModel() {
                         }
                     )
                 }
-            }.let { it1 -> pokemons.postValue(it1 as List<Pokemon>?)
-            loading.postValue(loading.value)}
+            }.let { it1 ->
+                pokemons.postValue(it1 as List<Pokemon>?)
+                loadingSpinner.dismiss()
+            }
         }
-
     }
 }
