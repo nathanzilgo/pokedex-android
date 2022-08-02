@@ -48,17 +48,21 @@
             android:id="@+id/tvName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#313131"
+            android:layout_marginBottom="30dp"
+            android:textColor="@color/material_dynamic_primary0"
             android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvNumber"
             tools:text="Charmander" />
 
         <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:layout_marginTop="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvName">
@@ -70,8 +74,8 @@
                 android:background="#A4ACAF"
                 android:gravity="center_horizontal"
                 android:textAlignment="center"
-                android:textColor="#212121"
-                android:textSize="12sp"
+                android:textColor="@color/material_dynamic_primary10"
+                android:textSize="14sp"
                 tools:text="Type" />
 
             <TextView
@@ -83,8 +87,8 @@
                 android:background="#A4ACAF"
                 android:gravity="center_horizontal"
                 android:textAlignment="center"
-                android:textColor="#212121"
-                android:textSize="12sp"
+                android:textColor="@color/material_dynamic_primary10"
+                android:textSize="14sp"
                 tools:text="Fire" />
         </LinearLayout>
 

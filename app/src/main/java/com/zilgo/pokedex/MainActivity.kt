@@ -2,7 +2,8 @@ package com.zilgo.pokedex
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.lifecycle.Observer
+import android.view.View
+import android.widget.ProgressBar
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,6 +18,10 @@ class MainActivity : AppCompatActivity() {
         findViewById<RecyclerView>(R.id.rvPokemons)
     }
 
+    private val loader by lazy {
+        findViewById<ProgressBar>(R.id.clLoading)
+    }
+
     private val viewModel by lazy {
         ViewModelProvider(this, PokemonViewModelFactory())
             .get(PokemonViewModel::class.java)
@@ -26,13 +31,23 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        recyclerView.visibility = View.GONE
         viewModel.pokemons.observe(this) {
             loadRecyclerView(it)
         }
+        viewModel.loading.observe(this) {
+            loadProgressBar(it)
+        }
+        recyclerView.visibility = View.VISIBLE
     }
 
     private fun loadRecyclerView(pokemons: List<Pokemon?>) {
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = PokemonAdapter(pokemons as List<Pokemon>)
+    }
+
+    private fun loadProgressBar(loader: ProgressBar) {
+        loader.setProgress(20)
+        loader.visibility = View.VISIBLE
     }
 }

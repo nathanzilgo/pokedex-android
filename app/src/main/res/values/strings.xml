@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">pokedex</string>
     <string name="image_view_pokemon">image view pokemon</string>
+    <string name="loading_text">Carregando a lista de pokemons...</string>
 </resources>
