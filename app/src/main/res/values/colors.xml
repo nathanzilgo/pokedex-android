@@ -7,4 +7,21 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!--Pokemons:    -->
+    <color name="fire">#FC5A03</color>
+    <color name="water">#2196F3</color>
+    <color name="poison">#7E4293</color>
+    <color name="electric">#E1CA58</color>
+    <color name="ground">#f4f794</color>
+    <color name="bug">#c5f285</color>
+    <color name="ghost">#AF48F3</color>
+    <color name="steel">#CBCACC</color>
+    <color name="dark">#87624D</color>
+    <color name="dragon">#534DF4</color>
+    <color name="ice">#9DDAE1</color>
+    <color name="psychic">#fa3ec2</color>
+    <color name="grass">#99F684</color>
+    <color name="flying">#DACBEF</color>
+
 </resources>
