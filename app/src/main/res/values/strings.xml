@@ -3,4 +3,5 @@
     <string name="image_view_pokemon">image view pokemon</string>
     <string name="loading_text">Carregando a lista de pokemons...</string>
     <string name="carregando_pokemons">Carregando pokemons...</string>
+    <string name="title">Zilgo\'s Pokedex</string>
 </resources>

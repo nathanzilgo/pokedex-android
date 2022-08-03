@@ -12,7 +12,6 @@ import java.security.Provider
 class PokemonViewModel : ViewModel() {
 
     var pokemons = MutableLiveData<List<Pokemon>>()
-    val loadingSpinner = LoadingSpinner()
 
     init {
         Thread(Runnable {
@@ -21,7 +20,7 @@ class PokemonViewModel : ViewModel() {
     }
 
     private fun loadPokemons() {
-        loadingSpinner.startLoading()
+
         val pokemonsApiResult = PokemonRepository.listPokemons()
 
         pokemonsApiResult?.results?.let {
@@ -43,7 +42,7 @@ class PokemonViewModel : ViewModel() {
                 }
             }.let { it1 ->
                 pokemons.postValue(it1 as List<Pokemon>?)
-                loadingSpinner.dismiss()
+
             }
         }
     }

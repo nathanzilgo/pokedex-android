@@ -4,74 +4,50 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient_animation"
     tools:context=".MainActivity">
 
+
+    <include
+        android:id="@+id/progressBar"
+        layout="@layout/loading_itens"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <SearchView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/svPokemons"
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:layout_marginBottom="565dp"
+        android:background="@color/cardview_light_background"
+        android:backgroundTint="@color/ground"
+        android:elevation="@dimen/cardview_compat_inset_shadow"
+        android:inputType="textAutoComplete"
+        android:outlineAmbientShadowColor="@color/bug"
         android:tooltipText="Pesquise algum pokemon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/includedLoading"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="@+id/progressBar"
+        app:layout_constraintVertical_bias="0.0">
 
-    <include
-        layout="@layout/loading_itens"
-        android:id="@+id/includedLoading"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
 
-    <!--    <androidx.constraintlayout.widget.ConstraintLayout-->
-    <!--        android:id="@+id/clLoading"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="match_parent"-->
-    <!--        android:layout_marginStart="100dp"-->
-    <!--        android:layout_marginTop="100dp"-->
-    <!--        android:layout_marginEnd="100dp"-->
-    <!--        android:layout_marginBottom="200dp"-->
-    <!--        android:orientation="vertical"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintEnd_toStartOf="parent"-->
-    <!--        app:layout_constraintHorizontal_bias="0.0"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent"-->
-    <!--        app:layout_constraintVertical_bias="0.0">-->
-
-    <!--        <TextView-->
-    <!--            android:id="@+id/tvLoad"-->
-    <!--            android:layout_width="wrap_content"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:text="@string/loading_text"-->
-    <!--            android:textFontWeight="@integer/material_motion_duration_medium_1"-->
-    <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--            app:layout_constraintEnd_toEndOf="parent"-->
-    <!--            app:layout_constraintStart_toStartOf="parent"-->
-    <!--            app:layout_constraintTop_toTopOf="parent" />-->
-
-    <!--        <ProgressBar-->
-    <!--            android:id="@+id/progressBar"-->
-    <!--            style="?android:attr/progressBarStyle"-->
-    <!--            android:layout_width="60dp"-->
-    <!--            android:layout_height="60dp"-->
-    <!--            android:rotation="180"-->
-    <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--            app:layout_constraintEnd_toEndOf="@+id/tvLoad"-->
-    <!--            app:layout_constraintStart_toStartOf="@+id/tvLoad"-->
-    <!--            app:layout_constraintTop_toTopOf="@+id/tvLoad" />-->
-
-    <!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
+    </SearchView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvPokemons"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/progressBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.24000001"
+        app:layout_constraintTop_toBottomOf="@+id/svPokemons"
+        app:layout_constraintVertical_bias="0.0"
         tools:listitem="@layout/pokemon_item" />
 
 

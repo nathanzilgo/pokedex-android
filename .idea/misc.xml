@@ -4,9 +4,14 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/natha/AndroidStudioProjects/pokedex/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.255" />
+        <entry key="..\:/Users/natha/AndroidStudioProjects/pokedex/app/src/main/res/drawable/gradient_animation.xml" value="0.1945" />
+        <entry key="..\:/Users/natha/AndroidStudioProjects/pokedex/app/src/main/res/drawable/gradient_bar.xml" value="0.1955" />
+        <entry key="..\:/Users/natha/AndroidStudioProjects/pokedex/app/src/main/res/drawable/gradient_center.xml" value="0.1955" />
+        <entry key="..\:/Users/natha/AndroidStudioProjects/pokedex/app/src/main/res/drawable/gradient_drawable.xml" value="0.196" />
         <entry key="..\:/Users/natha/AndroidStudioProjects/pokedex/app/src/main/res/drawable/ic_launcher_background.xml" value="0.255" />
         <entry key="..\:/Users/natha/AndroidStudioProjects/pokedex/app/src/main/res/layout-v28/activity_main.xml" value="0.3614583333333333" />
         <entry key="..\:/Users/natha/AndroidStudioProjects/pokedex/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Users/natha/AndroidStudioProjects/pokedex/app/src/main/res/layout/gradient_toolbar.xml" value="0.18802083333333333" />
         <entry key="..\:/Users/natha/AndroidStudioProjects/pokedex/app/src/main/res/layout/loading_itens.xml" value="0.5" />
         <entry key="..\:/Users/natha/AndroidStudioProjects/pokedex/app/src/main/res/layout/pokemon_item.xml" value="0.358695652173913" />
         <entry key="..\:/Users/natha/AndroidStudioProjects/pokedex/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.255" />
