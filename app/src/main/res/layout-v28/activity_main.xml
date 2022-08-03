@@ -7,22 +7,10 @@
     android:background="@drawable/gradient_animation"
     tools:context=".MainActivity">
 
-
-    <include
-        android:id="@+id/progressBar"
-        layout="@layout/loading_itens"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <SearchView
         android:id="@+id/svPokemons"
         android:layout_width="fill_parent"
-        android:layout_height="60dp"
-        android:layout_marginBottom="565dp"
+        android:layout_height="wrap_content"
         android:background="@color/cardview_light_background"
         android:backgroundTint="@color/ground"
         android:elevation="@dimen/cardview_compat_inset_shadow"
@@ -31,24 +19,31 @@
         android:tooltipText="Pesquise algum pokemon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <include
+        android:id="@+id/progressBar"
+        layout="@layout/loading_itens"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/progressBar"
-        app:layout_constraintVertical_bias="0.0">
-
-
-    </SearchView>
+        app:layout_constraintTop_toTopOf="@+id/svPokemons" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvPokemons"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/svPokemons"
-        app:layout_constraintVertical_bias="0.0"
-        tools:listitem="@layout/pokemon_item" />
+        tools:listitem="@layout/pokemon_item">
+
+    </androidx.recyclerview.widget.RecyclerView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
