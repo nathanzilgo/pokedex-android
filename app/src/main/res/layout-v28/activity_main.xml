@@ -7,23 +7,6 @@
     android:background="@drawable/gradient_animation"
     tools:context=".MainActivity">
 
-    <SearchView
-        android:id="@+id/svPokemons"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/cardview_light_background"
-        android:backgroundTint="@color/ground"
-        android:elevation="@dimen/cardview_compat_inset_shadow"
-        android:inputType="textAutoComplete"
-        android:outlineAmbientShadowColor="@color/bug"
-        android:tooltipText="Pesquise algum pokemon"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
-
     <include
         android:id="@+id/progressBar"
         layout="@layout/loading_itens"
@@ -31,16 +14,16 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/svPokemons" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvPokemons"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="1dp"
+        app:layout_constraintBottom_toBottomOf="@+id/progressBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/svPokemons"
         tools:listitem="@layout/pokemon_item">
 
     </androidx.recyclerview.widget.RecyclerView>

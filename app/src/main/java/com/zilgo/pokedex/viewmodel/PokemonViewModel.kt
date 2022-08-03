@@ -12,6 +12,7 @@ import java.security.Provider
 class PokemonViewModel : ViewModel() {
 
     var pokemons = MutableLiveData<List<Pokemon>>()
+    private var pokemonsList = mutableListOf<Pokemon>()
 
     init {
         Thread(Runnable {
@@ -42,8 +43,14 @@ class PokemonViewModel : ViewModel() {
                 }
             }.let { it1 ->
                 pokemons.postValue(it1 as List<Pokemon>?)
-
+                pokemonsList = it1 as MutableList<Pokemon>
             }
         }
+    }
+
+    fun searchPokemons(searchQuery: String) {
+        pokemons.postValue(pokemonsList.filter {
+            it.name.contains(searchQuery)
+        })
     }
 }
