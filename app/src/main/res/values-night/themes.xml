@@ -1,16 +1,19 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Pokedex" parent="Theme.AppCompat">
+    <style name="Theme.Pokedex" parent="Theme.AppCompat.DayNight.DialogWhenLarge">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/white</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimary">@color/bug</item>
+        <item name="colorPrimaryVariant">@color/ice</item>
+        <item name="colorOnPrimary">@color/electric</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/ice</item>
-        <item name="colorSecondaryVariant">@color/teal_200</item>
-        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorOnSecondary">@color/dragon</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" >@color/bug</item>
+        <!--        <item name="android:statusBarColor" >?attr/colorPrimaryVariant</item>-->
         <!-- Customize your theme here. -->
+        <item name="titleTextColor">@color/flying</item>
+        <item name="windowNoTitle">true</item>
     </style>
+
 </resources>

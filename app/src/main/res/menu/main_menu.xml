@@ -4,6 +4,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/ic_menu_art"
+        android:icon="@drawable/charmander_real"
+        android:title="@string/ic_menu_art"
+        app:showAsAction="ifRoom"
+        tools:targetApi="o" />
+
+    <item
         android:id="@+id/ic_menu_search"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="ifRoom"
@@ -12,4 +19,6 @@
         android:iconTint="@color/white"
         android:title="@string/search"
         android:tooltipText="@string/search"/>
+
+
 </menu>

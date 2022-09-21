@@ -49,7 +49,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="30dp"
-            android:textColor="@color/material_dynamic_primary0"
+            android:textColor="@color/black"
             android:textSize="24sp"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout"
             app:layout_constraintEnd_toEndOf="parent"
@@ -74,7 +74,7 @@
                 android:background="@color/steel"
                 android:gravity="center_horizontal"
                 android:textAlignment="center"
-                android:textColor="@color/material_dynamic_primary10"
+                android:textColor="@color/black"
                 android:textSize="12sp"
                 tools:text="Type" />
 
@@ -86,7 +86,7 @@
                 android:background="@color/steel"
                 android:gravity="center_horizontal"
                 android:textAlignment="center"
-                android:textColor="@color/material_dynamic_primary10"
+                android:textColor="@color/black"
                 android:textSize="12sp"
                 tools:text="Fire" />
         </LinearLayout>

@@ -10,11 +10,10 @@
         <item name="colorSecondaryVariant">@color/teal_700</item>
         <item name="colorOnSecondary">@color/dragon</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" >?attr/colorPrimaryVariant</item>
+<!--        <item name="android:statusBarColor" >?attr/colorPrimaryVariant</item>-->
         <!-- Customize your theme here. -->
         <item name="titleTextColor">@color/flying</item>
         <item name="windowNoTitle">true</item>
-        <item name="android:itemBackground">@color/ice</item>
     </style>
 
 </resources>
