@@ -1,9 +1,9 @@
 <resources>
-    <string name="app_name">Zilgo\'s Pokedex</string>
+    <string name="app_name">Pokedex</string>
     <string name="image_view_pokemon">image view pokemon</string>
     <string name="loading_text">Carregando a lista de pokemons...</string>
     <string name="carregando_pokemons">Carregando pokemons...</string>
-    <string name="title">Zilgo\'s Pokedex</string>
+    <string name="title">Pokedex</string>
     <string name="pokemon_image">Pokemon Image</string>
     <string name="search">Pesquisar Pokemon</string>
 </resources>

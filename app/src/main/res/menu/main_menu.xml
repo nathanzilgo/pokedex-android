@@ -4,11 +4,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/menu_search"
+        android:id="@+id/ic_menu_search"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="ifRoom"
         tools:targetApi="o"
         android:icon="@drawable/search_icon"
         android:iconTint="@color/white"
-        android:title="@string/search" />
+        android:title="@string/search"
+        android:tooltipText="@string/search"/>
 </menu>

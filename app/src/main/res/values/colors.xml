@@ -11,11 +11,11 @@
     <!--Pokemons:    -->
     <color name="fire">#FB7A35</color>
     <color name="water">#2196F3</color>
-    <color name="poison">#9359A7</color>
+    <color name="poison">#B27EC4</color>
     <color name="electric">#E1CA58</color>
     <color name="ground">#f4f794</color>
     <color name="bug">#c5f285</color>
-    <color name="ghost">#B854FA</color>
+    <color name="ghost">#AA34F8</color>
     <color name="steel">#CBCACC</color>
     <color name="dark">#936D57</color>
     <color name="dragon">#534DF4</color>

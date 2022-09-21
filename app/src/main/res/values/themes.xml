@@ -14,6 +14,7 @@
         <!-- Customize your theme here. -->
         <item name="titleTextColor">@color/flying</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:itemBackground">@color/ice</item>
     </style>
 
 </resources>
