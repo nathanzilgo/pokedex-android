@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.zilgo.pokedex.api.PokemonRepository
 import com.zilgo.pokedex.domain.Pokemon
+import com.zilgo.pokedex.domain.PokemonType
 import java.security.Provider
 
 class PokemonViewModel : ViewModel() {
@@ -52,5 +53,18 @@ class PokemonViewModel : ViewModel() {
         pokemons.postValue(pokemonsList.filter {
             it.name.contains(searchQuery)
         })
+    }
+
+    fun filterByType(types: List<PokemonType>) {
+        val output = mutableListOf<Pokemon>()
+
+        for (pokemon in pokemonsList) {
+            for (type in types) {
+                if (pokemon.types.contains(type)) {
+                    output.add(pokemon)
+                }
+            }
+        }
+        pokemons.postValue(output)
     }
 }

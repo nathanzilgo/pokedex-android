@@ -7,4 +7,5 @@
     <string name="pokemon_image">Pokemon Image</string>
     <string name="search">Pesquisar Pokemon</string>
     <string name="ic_menu_art">icon menu</string>
+    <string name="filtrar_por_tipo">Filtrar por tipo</string>
 </resources>

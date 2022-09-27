@@ -1,9 +1,13 @@
 package com.zilgo.pokedex
 
 
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import android.view.View
+import android.widget.Button
+import android.widget.Toast
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
@@ -18,7 +22,9 @@ import com.zilgo.pokedex.viewmodel.PokemonViewModel
 import com.zilgo.pokedex.viewmodel.PokemonViewModelFactory
 
 
-class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
+class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener, View.OnClickListener {
+
+    private var mediaPlayer: MediaPlayer? = null
 
     private val recyclerView by lazy {
         findViewById<RecyclerView>(R.id.rvPokemons)
@@ -56,10 +62,31 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
         val search = menu?.findItem(R.id.ic_menu_search)
         val searchView = search?.actionView as? SearchView
+        val musicBtn = menu?.findItem(R.id.ic_menu_art) as? Button
+
         searchView?.isSubmitButtonEnabled = true
         searchView?.setOnQueryTextListener(this)
-
+        musicBtn?.setOnClickListener(this)
+        Toast.makeText(this, "Click on Charmander to play music!\nClick again to stop",
+            Toast.LENGTH_LONG).show()
         return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId) {
+            R.id.ic_menu_art -> {
+                playOST()
+                true
+            }
+            else -> false
+        }
+    }
+
+    private fun playOST(view: MainActivity) {
+        if (mediaPlayer == null) {
+            mediaPlayer = MediaPlayer.create(this, R.raw.pokemon_ost)
+        }
+        mediaPlayer?.start()
     }
 
     private fun loadRecyclerView(pokemons: List<Pokemon?>) {
@@ -85,5 +112,33 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
     private fun searchPokemons(query: String) {
         viewModel.searchPokemons(query.lowercase())
+    }
+
+    fun playOST() {
+        if (mediaPlayer == null) {
+            mediaPlayer = MediaPlayer.create(this, R.raw.pokemon_ost)
+            mediaPlayer?.setLooping(true)
+            mediaPlayer?.start()
+            Toast.makeText(this, "Now playing: \nPokemon Sapphire Litteroot Town!"
+                , Toast.LENGTH_LONG).show()
+        } else {
+            stopOST()
+        }
+    }
+
+    private fun stopOST() {
+        if (mediaPlayer != null) {
+            cleansePlayer()
+        }
+    }
+
+    private fun cleansePlayer() {
+        mediaPlayer?.release()
+        mediaPlayer = null
+        Toast.makeText(this, "Media player released!", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onClick(p0: View?) {
+        playOST()
     }
 }
