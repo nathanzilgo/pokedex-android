@@ -1,19 +1,19 @@
 package com.zilgo.pokedex.viewmodel
 
-import android.widget.LinearLayout
-import android.widget.ProgressBar
-import androidx.appcompat.app.AppCompatActivity
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.zilgo.pokedex.api.PokemonRepository
 import com.zilgo.pokedex.domain.Pokemon
 import com.zilgo.pokedex.domain.PokemonType
-import java.security.Provider
 
 class PokemonViewModel : ViewModel() {
 
     var pokemons = MutableLiveData<List<Pokemon>>()
     private var pokemonsList = mutableListOf<Pokemon>()
+
+    private lateinit var dataStore: DataStore<Preferences>
 
     init {
         Thread(Runnable {

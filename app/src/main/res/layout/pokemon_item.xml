@@ -25,13 +25,12 @@
             android:layout_width="250dp"
             android:layout_height="250dp"
             android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
             android:contentDescription="@string/pokemon_image"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            />
 
         <TextView
             android:id="@+id/tvNumber"
@@ -48,7 +47,7 @@
             android:id="@+id/tvName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp"
+            android:layout_marginBottom="40dp"
             android:textColor="@color/black"
             android:textSize="24sp"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout"
@@ -90,6 +89,20 @@
                 android:textSize="12sp"
                 tools:text="Fire" />
         </LinearLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatingActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="194dp"
+            android:clickable="true"
+            app:layout_constraintBottom_toBottomOf="@+id/ivPokemon"
+            app:layout_constraintEnd_toStartOf="@+id/ivPokemon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/ivPokemon"
+            app:layout_constraintVertical_bias="0.49"
+            app:srcCompat="@drawable/ic_baseline_account_circle_24" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

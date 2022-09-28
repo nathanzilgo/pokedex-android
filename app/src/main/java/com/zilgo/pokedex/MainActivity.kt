@@ -53,6 +53,7 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener, View.O
             if (viewModel.pokemons.value != null) {
                 progressBar.visibility = View.GONE
                 loadingSpinner.dismiss()
+//                TODO: save sharedpreferences
             }
         }
     }
