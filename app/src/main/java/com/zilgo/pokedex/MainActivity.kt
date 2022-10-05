@@ -1,6 +1,7 @@
 package com.zilgo.pokedex
 
 
+import android.content.Context
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.Menu
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.zilgo.pokedex.domain.Pokemon
 import com.zilgo.pokedex.view.PokemonAdapter
+import com.zilgo.pokedex.view.PokemonDialogFragment
 import com.zilgo.pokedex.viewmodel.LoadingSpinner
 import com.zilgo.pokedex.viewmodel.PokemonViewModel
 import com.zilgo.pokedex.viewmodel.PokemonViewModelFactory
@@ -44,7 +46,6 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener, View.O
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         // Create the observer which updated the UI
         viewModel.pokemons.observe(this) {
             // Update the UI, in this case, a RecyclerView
@@ -56,6 +57,11 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener, View.O
 //                TODO: save sharedpreferences
             }
         }
+
+        appContext = this.baseContext
+    }
+    companion object {
+        lateinit  var appContext: Context
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -83,16 +89,27 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener, View.O
         }
     }
 
-    private fun playOST(view: MainActivity) {
-        if (mediaPlayer == null) {
-            mediaPlayer = MediaPlayer.create(this, R.raw.pokemon_ost)
-        }
-        mediaPlayer?.start()
+    private fun loadRecyclerView(pokemons: List<Pokemon?>) {
+        val adapter = PokemonAdapter(pokemons as List<Pokemon>)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = adapter
+
+//        adapter.setOnItemClickListener(object : PokemonAdapter.onItemClickListener {
+//            override fun onItemClick(position: Int) {
+//                adapter.getItem(position)?.let { showPokemonDialog(it) }
+//            }
+//        })
     }
 
-    private fun loadRecyclerView(pokemons: List<Pokemon?>) {
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = PokemonAdapter(pokemons as List<Pokemon>)
+    private fun showPokemonDialog(pokemon: Pokemon) {
+          val fragment = PokemonDialogFragment(pokemon)
+          val fm = supportFragmentManager
+          fm.beginTransaction().replace(R.id.root_container, fragment).addToBackStack(null).commit()
+//        val tr = fm.beginTransaction()
+//        tr.replace(R.id.root_container, fragment)
+//        tr.commitAllowingStateLoss()
+//
+//        return fragment
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {

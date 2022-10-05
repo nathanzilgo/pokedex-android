@@ -1,10 +1,13 @@
 package com.zilgo.pokedex.domain
 
+import android.os.Parcelable
 import com.zilgo.pokedex.R
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class PokemonType (
     val name: String
-) {
+) : Parcelable {
     fun mapColor(): Int {
         return when (name.lowercase()) {
             "fire" -> R.color.fire

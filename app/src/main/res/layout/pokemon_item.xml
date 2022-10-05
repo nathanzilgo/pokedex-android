@@ -12,7 +12,9 @@
     android:layout_marginRight="16dp"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent">
+    app:layout_constraintTop_toTopOf="parent"
+    android:id="@+id/cvPokemon"
+    android:outlineAmbientShadowColor="@color/black">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -90,19 +92,20 @@
                 tools:text="Fire" />
         </LinearLayout>
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floatingActionButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginBottom="194dp"
-            android:clickable="true"
-            app:layout_constraintBottom_toBottomOf="@+id/ivPokemon"
-            app:layout_constraintEnd_toStartOf="@+id/ivPokemon"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/ivPokemon"
-            app:layout_constraintVertical_bias="0.49"
-            app:srcCompat="@drawable/ic_baseline_account_circle_24" />
+<!--        <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--            android:id="@+id/floatingActionButton"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="10dp"-->
+<!--            android:layout_marginBottom="194dp"-->
+<!--            android:clickable="true"-->
+<!--            android:visibility="gone"-->
+<!--            app:layout_constraintBottom_toBottomOf="@+id/ivPokemon"-->
+<!--            app:layout_constraintEnd_toStartOf="@+id/ivPokemon"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="@+id/ivPokemon"-->
+<!--            app:layout_constraintVertical_bias="0.49"-->
+<!--            app:srcCompat="@drawable/ic_baseline_account_circle_24" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

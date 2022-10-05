@@ -1,7 +1,7 @@
 package com.zilgo.pokedex.api
 
 import com.zilgo.pokedex.api.model.PokemonApiResult
-import com.zilgo.pokedex.api.model.PokemonsApiResult
+import com.zilgo.pokedex.api.model.PokemonsListApiResult
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -17,7 +17,7 @@ object PokemonRepository {
         service = retrofit.create(PokemonService::class.java)
     }
 
-    fun listPokemons(limit: Int = 151): PokemonsApiResult? {
+    fun listPokemons(limit: Int = 151): PokemonsListApiResult? {
         val call = service.listPokemons(limit)
 
         return call.execute().body()

@@ -23,23 +23,29 @@ class PokemonViewModel : ViewModel() {
 
     private fun loadPokemons() {
 
-        val pokemonsApiResult = PokemonRepository.listPokemons()
+        val pokemonsListApiResult = PokemonRepository.listPokemons()
 
-        pokemonsApiResult?.results?.let {
+        pokemonsListApiResult?.results?.let {
             it.map { pokemonResult ->
-                val number = pokemonResult.url
+                // ID:
+                val id = pokemonResult.url
                     .replace("https://pokeapi.co/api/v2/pokemon/", "")
                     .replace("/", "").toInt()
 
-                val pokemonApiResult = PokemonRepository.getPokemon(number)
+                // Pega o pokemon pelo ID
+                val pokemonApiResult = PokemonRepository.getPokemon(id)
 
-                pokemonApiResult?.let {
+                pokemonApiResult?.let { pokemonApiResult ->
                     Pokemon(
                         pokemonApiResult.id,
                         pokemonApiResult.name,
                         pokemonApiResult.types.map { type ->
                             type.type
-                        }
+                        },
+                        pokemonApiResult.abilities,
+                        pokemonApiResult.weight,
+                        pokemonApiResult.moves,
+                        pokemonApiResult.stats,
                     )
                 }
             }.let { it1 ->
