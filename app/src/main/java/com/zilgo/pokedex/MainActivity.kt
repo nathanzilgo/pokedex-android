@@ -2,6 +2,8 @@ package com.zilgo.pokedex
 
 
 import android.content.Context
+import android.content.SharedPreferences
+import android.content.SharedPreferences.Editor
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.Menu
@@ -13,16 +15,23 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.intPreferencesKey
+import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.zilgo.pokedex.domain.Pokemon
 import com.zilgo.pokedex.view.PokemonAdapter
 import com.zilgo.pokedex.view.PokemonDialogFragment
 import com.zilgo.pokedex.viewmodel.LoadingSpinner
 import com.zilgo.pokedex.viewmodel.PokemonViewModel
 import com.zilgo.pokedex.viewmodel.PokemonViewModelFactory
-
+import kotlinx.coroutines.flow.Flow
 
 class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener, View.OnClickListener {
 
@@ -35,6 +44,8 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener, View.O
     private val progressBar by lazy {
         findViewById<ConstraintLayout>(R.id.progressBar)
     }
+
+    val sharedPref = getSharedPreferences("pokemons", AppCompatActivity.MODE_PRIVATE)
 
     val loadingSpinner = LoadingSpinner(this)
 
@@ -54,7 +65,8 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener, View.O
             if (viewModel.pokemons.value != null) {
                 progressBar.visibility = View.GONE
                 loadingSpinner.dismiss()
-//                TODO: save sharedpreferences
+//               TODO: save sharedpreferences
+
             }
         }
 
@@ -93,23 +105,6 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener, View.O
         val adapter = PokemonAdapter(pokemons as List<Pokemon>)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
-
-//        adapter.setOnItemClickListener(object : PokemonAdapter.onItemClickListener {
-//            override fun onItemClick(position: Int) {
-//                adapter.getItem(position)?.let { showPokemonDialog(it) }
-//            }
-//        })
-    }
-
-    private fun showPokemonDialog(pokemon: Pokemon) {
-          val fragment = PokemonDialogFragment(pokemon)
-          val fm = supportFragmentManager
-          fm.beginTransaction().replace(R.id.root_container, fragment).addToBackStack(null).commit()
-//        val tr = fm.beginTransaction()
-//        tr.replace(R.id.root_container, fragment)
-//        tr.commitAllowingStateLoss()
-//
-//        return fragment
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {
@@ -159,4 +154,45 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener, View.O
     override fun onClick(p0: View?) {
         playOST()
     }
+
+    private suspend fun saveLocal(pokemons: List<Pokemon?>) {
+
+
+        val editor = sharedPref.edit()
+        val parser = Gson()
+        val json = parser.toJson(pokemons)
+        editor.putString("pokemons", json)
+        editor.apply()
+    }
+
+//    companion object {
+//        val sharedPreferences = getSharedPreferences
+//    }
+//    public final class SharePreferencesObject() {
+//        val sharedPref = getSharedPreferences("pokemons", AppCompatActivity.MODE_PRIVATE)
+//        val editor = sharedPref.edit()
+//        val parser = Gson()
+//        val json = parser.toJson(pokemons)
+//        editor.putString("pokemons", json)
+//        editor.apply()
+//    }
 }
+
+class Prefs (context: Context) {
+
+    private val POKEMONS_LIST = "pokemonsPref"
+
+    private val preferences : SharedPreferences = context.getSharedPreferences(POKEMONS_LIST, Context.MODE_PRIVATE)
+
+    var pokemons = mutableListOf<Pokemon>()
+    val parser = Gson()
+
+//    val tinyDb = TinyDB(context)
+    var stringJson: String
+        get() = preferences.getString(POKEMONS_LIST, null).toString()
+        set(value) = preferences.edit().putString(POKEMONS_LIST, stringJson).apply()
+
+//    fun getPokemons() = parser.fromJson<Pokemon>(stringJson)
+}
+
+

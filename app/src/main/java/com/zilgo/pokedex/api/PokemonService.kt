@@ -1,5 +1,7 @@
 package com.zilgo.pokedex.api
 
+import com.zilgo.pokedex.api.model.Ability
+import com.zilgo.pokedex.api.model.Move
 import com.zilgo.pokedex.api.model.PokemonApiResult
 import com.zilgo.pokedex.api.model.PokemonsListApiResult
 import retrofit2.Call
@@ -13,4 +15,10 @@ interface PokemonService {
 
     @GET("pokemon/{number}")
     fun getPokemon(@Path("number") number: Int): Call<PokemonApiResult>
+
+    @GET("{url}")
+    fun getMove(@Path("url") url: String): Call<Move>
+
+    @GET("{url}")
+    fun getAbility(@Path("url") url: String): Call<Ability>
 }

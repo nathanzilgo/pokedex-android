@@ -1,5 +1,7 @@
 package com.zilgo.pokedex.api
 
+import com.zilgo.pokedex.api.model.Ability
+import com.zilgo.pokedex.api.model.Move
 import com.zilgo.pokedex.api.model.PokemonApiResult
 import com.zilgo.pokedex.api.model.PokemonsListApiResult
 import retrofit2.Retrofit
@@ -19,13 +21,21 @@ object PokemonRepository {
 
     fun listPokemons(limit: Int = 151): PokemonsListApiResult? {
         val call = service.listPokemons(limit)
-
         return call.execute().body()
     }
 
     fun getPokemon(number: Int): PokemonApiResult? {
         val call = service.getPokemon(number)
+        return call.execute().body()
+    }
 
+    fun getMove(url: String): Move? {
+        val call = service.getMove(url)
+        return call.execute().body()
+    }
+
+    fun getAbility(url: String): Ability? {
+        val call = service.getAbility(url)
         return call.execute().body()
     }
 }

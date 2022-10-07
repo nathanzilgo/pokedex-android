@@ -1,12 +1,17 @@
 package com.zilgo.pokedex.viewmodel
 
+import android.content.SharedPreferences
+import androidx.appcompat.app.AppCompatActivity
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.zilgo.pokedex.api.PokemonRepository
 import com.zilgo.pokedex.domain.Pokemon
 import com.zilgo.pokedex.domain.PokemonType
+import kotlinx.coroutines.flow.Flow
 
 class PokemonViewModel : ViewModel() {
 
@@ -23,6 +28,7 @@ class PokemonViewModel : ViewModel() {
 
     private fun loadPokemons() {
 
+        if
         val pokemonsListApiResult = PokemonRepository.listPokemons()
 
         pokemonsListApiResult?.results?.let {
@@ -72,5 +78,22 @@ class PokemonViewModel : ViewModel() {
             }
         }
         pokemons.postValue(output)
+    }
+
+    private suspend fun saveLocal(pokemons: List<Pokemon?>) {
+
+        val sharedPref = getSharedPreferences("pokemons", AppCompatActivity.MODE_PRIVATE)
+        val editor = sharedPref.edit()
+        val parser = Gson()
+        val json = parser.toJson(pokemons)
+        editor.putString("pokemons", json)
+        editor.apply()
+    }
+
+    private fun readLocal(): Flow<Int> {
+        val sharedPref = getSharedPreferences("pokemons", AppCompatActivity.MODE_PRIVATE)
+        val parser = Gson()
+        val json = sharedPref.getString("pokemons", null)
+        val type = TypeToken<List<Pokemon>>().type
     }
 }

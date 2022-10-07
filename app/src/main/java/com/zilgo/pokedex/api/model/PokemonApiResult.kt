@@ -1,7 +1,7 @@
 package com.zilgo.pokedex.api.model
 
-import android.os.Parcel
 import android.os.Parcelable
+import com.zilgo.pokedex.api.PokemonRepository
 import com.zilgo.pokedex.domain.PokemonType
 import kotlinx.android.parcel.Parcelize
 
@@ -24,7 +24,9 @@ data class PokemonApiResult(
     val abilities: List<PokemonAbilities>,
     val weight: Float,
     val stats: List<PokemonStat>,
-    val moves: List<PokemonMoves>
+    val moves: List<PokemonMoves>,
+    val height: Int,
+    val base_experience: Int
 )
 
 data class PokemonTypeSlot(
@@ -42,32 +44,67 @@ data class PokemonAbilities(
 @Parcelize
 data class PokemonAbility(
     val name: String,
-    val url: String
-) : Parcelable
+    val url: String,
+    var ability: Ability
+) : Parcelable {
+    init {
+        getAbility()
+    }
+    private fun getAbility() {
+        ability = PokemonRepository.getAbility(url)!!
+    }
+}
 
+@Parcelize
 data class Ability(
     val id: String,
     val name: String,
-)
+    val effect_entries: List<EffectEntry>
+) : Parcelable
 
+@Parcelize
+data class EffectEntry(
+    val effect: String,
+    val short_effect: String
+) : Parcelable
+
+@Parcelize
 data class PokemonStat(
     val base_stat: Int,
     val effort: Int,
     val stat: PokemonStatDescription
-)
-
-data class PokemonStatDescription(
-    val name: String,
-    val url: String
-)
-
-@Parcelize
-data class PokemonMoves(
-    val move: PokemonMove
 ) : Parcelable
 
 @Parcelize
-data class PokemonMove(
+data class PokemonStatDescription(
     val name: String,
     val url: String
+) : Parcelable
+
+@Parcelize
+data class PokemonMoves(
+    val move: PokemonMoveObject
+) : Parcelable
+
+@Parcelize
+data class PokemonMoveObject(
+    val name: String,
+    val url: String,
+    var move: Move
+) : Parcelable {
+    init {
+        getMove()
+    }
+    private fun getMove() {
+        move = PokemonRepository.getMove(url)!!
+    }
+}
+
+@Parcelize
+data class Move(
+    val id: Int,
+    val accuracy: Int,
+    val power: Int,
+    val pp: Int,
+    val name: String,
 ) : Parcelable

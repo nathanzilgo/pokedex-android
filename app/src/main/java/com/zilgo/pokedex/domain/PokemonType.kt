@@ -6,7 +6,8 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class PokemonType (
-    val name: String
+    val name: String,
+    val generation: List<PokemonGeneration>
 ) : Parcelable {
     fun mapColor(): Int {
         return when (name.lowercase()) {
@@ -28,3 +29,9 @@ data class PokemonType (
         }
     }
 }
+
+@Parcelize
+data class PokemonGeneration(
+    val name: String,
+    val url: String
+) : Parcelable

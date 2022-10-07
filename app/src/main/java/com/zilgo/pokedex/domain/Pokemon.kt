@@ -1,6 +1,5 @@
 package com.zilgo.pokedex.domain
 
-import android.os.Parcel
 import android.os.Parcelable
 import com.zilgo.pokedex.api.model.PokemonAbilities
 import com.zilgo.pokedex.api.model.PokemonMoves
@@ -17,7 +16,7 @@ data class Pokemon(
     val weight: Float,
     val moves: List<PokemonMoves>,
     val stats: List<PokemonStat>
-) :Parcelable {
+) : Parcelable {
     val formattedName = name.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.ROOT) else it.toString() }
 
     val formattedNumber = number.toString().padStart(3, '0')
