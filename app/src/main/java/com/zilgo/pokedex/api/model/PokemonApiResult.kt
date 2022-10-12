@@ -4,12 +4,15 @@ import android.os.Parcelable
 import com.zilgo.pokedex.api.PokemonRepository
 import com.zilgo.pokedex.domain.PokemonType
 import kotlinx.android.parcel.Parcelize
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 data class PokemonsListApiResult(
-    val count: Int,
+    val count: Int? = Int.MIN_VALUE,
     val next: String?,
     val previous: String?,
-    val results: List<PokemonResult>
+    val results: List<PokemonResult>? = mutableListOf()
 )
 
 data class PokemonResult(
@@ -26,85 +29,102 @@ data class PokemonApiResult(
     val stats: List<PokemonStat>,
     val moves: List<PokemonMoves>,
     val height: Int,
-    val base_experience: Int
+    val base_experience: Int? = Int.MIN_VALUE
 )
 
 data class PokemonTypeSlot(
     val slot: Int,
-    val type: PokemonType
+    val type: PokemonType? = PokemonType()
 )
 
+@kotlinx.serialization.Serializable
 @Parcelize
 data class PokemonAbilities(
-    val ability: PokemonAbility,
-    val is_hidden: Boolean,
-    val slot: Int
+    val ability: PokemonAbility?,
+    val is_hidden: Boolean?,
+    val slot: Int?
 ) : Parcelable
 
+@OptIn(DelicateCoroutinesApi::class)
+@kotlinx.serialization.Serializable
 @Parcelize
 data class PokemonAbility(
-    val name: String,
-    val url: String,
-    var ability: Ability
+    val name: String? = "",
+    val url: String? = "",
+    var ability: Ability? = Ability()
 ) : Parcelable {
-    init {
-        getAbility()
-    }
-    private fun getAbility() {
-        ability = PokemonRepository.getAbility(url)!!
+//    init {
+//        GlobalScope.launch {
+//            getAbility()
+//        }
+//    }
+
+    fun getAbility() {
+        ability = url?.let { PokemonRepository.getAbility(it) }!!
     }
 }
 
+@kotlinx.serialization.Serializable
 @Parcelize
 data class Ability(
-    val id: String,
-    val name: String,
-    val effect_entries: List<EffectEntry>
+    val id: String? = "",
+    val name: String? = "",
+    val effect_entries: List<EffectEntry>? = mutableListOf()
 ) : Parcelable
 
+@kotlinx.serialization.Serializable
 @Parcelize
 data class EffectEntry(
-    val effect: String,
-    val short_effect: String
+    val effect: String? = "",
+    val short_effect: String? = ""
 ) : Parcelable
 
+@kotlinx.serialization.Serializable
 @Parcelize
 data class PokemonStat(
-    val base_stat: Int,
-    val effort: Int,
-    val stat: PokemonStatDescription
+    val base_stat: Int? = Int.MIN_VALUE,
+    val effort: Int? = Int.MIN_VALUE,
+    val stat: PokemonStatDescription? = PokemonStatDescription()
 ) : Parcelable
 
+@kotlinx.serialization.Serializable
 @Parcelize
 data class PokemonStatDescription(
-    val name: String,
-    val url: String
+    val name: String? = "",
+    val url: String? = ""
 ) : Parcelable
 
+@kotlinx.serialization.Serializable
 @Parcelize
 data class PokemonMoves(
-    val move: PokemonMoveObject
+    val move: PokemonMoveObject? = PokemonMoveObject()
 ) : Parcelable
 
+@OptIn(DelicateCoroutinesApi::class)
+@kotlinx.serialization.Serializable
 @Parcelize
 data class PokemonMoveObject(
-    val name: String,
-    val url: String,
-    var move: Move
+    val name: String? = "",
+    val url: String? = "",
+    var move: Move? = Move()
 ) : Parcelable {
-    init {
-        getMove()
-    }
-    private fun getMove() {
-        move = PokemonRepository.getMove(url)!!
+//    init {
+//        GlobalScope.launch {
+//            getMove()
+//        }
+//    }
+
+     fun getMove() {
+        move = url?.let { PokemonRepository.getMove(it) }
     }
 }
 
+@kotlinx.serialization.Serializable
 @Parcelize
 data class Move(
-    val id: Int,
-    val accuracy: Int,
-    val power: Int,
-    val pp: Int,
-    val name: String,
+    val id: Int? = Int.MIN_VALUE,
+    val accuracy: Int? = Int.MIN_VALUE,
+    val power: Int? = Int.MIN_VALUE,
+    val pp: Int? = Int.MIN_VALUE,
+    val name: String? = "",
 ) : Parcelable

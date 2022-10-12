@@ -1,5 +1,6 @@
 package com.zilgo.pokedex.viewmodel
 
+import android.content.Context
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import androidx.datastore.core.DataStore
@@ -11,14 +12,16 @@ import com.google.gson.reflect.TypeToken
 import com.zilgo.pokedex.api.PokemonRepository
 import com.zilgo.pokedex.domain.Pokemon
 import com.zilgo.pokedex.domain.PokemonType
+import com.zilgo.pokedex.prefs
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.launch
 
 class PokemonViewModel : ViewModel() {
 
     var pokemons = MutableLiveData<List<Pokemon>>()
     private var pokemonsList = mutableListOf<Pokemon>()
-
-    private lateinit var dataStore: DataStore<Preferences>
 
     init {
         Thread(Runnable {
@@ -26,9 +29,14 @@ class PokemonViewModel : ViewModel() {
         }).start()
     }
 
+    @OptIn(DelicateCoroutinesApi::class)
     private fun loadPokemons() {
 
-        if
+        if (prefs.storedPokemons.isNotEmpty()) {
+            pokemons.postValue(prefs.getPokemonList())
+            pokemonsList = prefs.storedPokemons as MutableList<Pokemon>
+            return
+        }
         val pokemonsListApiResult = PokemonRepository.listPokemons()
 
         pokemonsListApiResult?.results?.let {
@@ -41,24 +49,33 @@ class PokemonViewModel : ViewModel() {
                 // Pega o pokemon pelo ID
                 val pokemonApiResult = PokemonRepository.getPokemon(id)
 
-                pokemonApiResult?.let { pokemonApiResult ->
-                    Pokemon(
-                        pokemonApiResult.id,
-                        pokemonApiResult.name,
-                        pokemonApiResult.types.map { type ->
-                            type.type
-                        },
-                        pokemonApiResult.abilities,
-                        pokemonApiResult.weight,
-                        pokemonApiResult.moves,
-                        pokemonApiResult.stats,
-                    )
+                pokemonApiResult?.let { apiResult ->
+                    apiResult.types.map { type ->
+                        type.type
+                    }.let { it1 ->
+                        Pokemon(
+                            apiResult.id,
+                            apiResult.name,
+                            it1 as List<PokemonType>,
+                            apiResult.abilities,
+                            apiResult.weight,
+                            apiResult.moves,
+                            apiResult.stats,
+                        )
+                    }
                 }
             }.let { it1 ->
                 pokemons.postValue(it1 as List<Pokemon>?)
                 pokemonsList = it1 as MutableList<Pokemon>
+                GlobalScope.launch {
+                    taskStorePokemons(it1)
+                }
             }
         }
+    }
+
+    suspend fun taskStorePokemons(pokemons: List<Pokemon>) {
+        prefs.storePokemons(pokemons)
     }
 
     fun searchPokemons(searchQuery: String) {
@@ -78,22 +95,5 @@ class PokemonViewModel : ViewModel() {
             }
         }
         pokemons.postValue(output)
-    }
-
-    private suspend fun saveLocal(pokemons: List<Pokemon?>) {
-
-        val sharedPref = getSharedPreferences("pokemons", AppCompatActivity.MODE_PRIVATE)
-        val editor = sharedPref.edit()
-        val parser = Gson()
-        val json = parser.toJson(pokemons)
-        editor.putString("pokemons", json)
-        editor.apply()
-    }
-
-    private fun readLocal(): Flow<Int> {
-        val sharedPref = getSharedPreferences("pokemons", AppCompatActivity.MODE_PRIVATE)
-        val parser = Gson()
-        val json = sharedPref.getString("pokemons", null)
-        val type = TypeToken<List<Pokemon>>().type
     }
 }

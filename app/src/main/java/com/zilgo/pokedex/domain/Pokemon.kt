@@ -5,8 +5,10 @@ import com.zilgo.pokedex.api.model.PokemonAbilities
 import com.zilgo.pokedex.api.model.PokemonMoves
 import com.zilgo.pokedex.api.model.PokemonStat
 import kotlinx.android.parcel.Parcelize
+import kotlinx.serialization.Serializable
 import java.util.*
 
+@Serializable
 @Parcelize
 data class Pokemon(
     val number: Int,

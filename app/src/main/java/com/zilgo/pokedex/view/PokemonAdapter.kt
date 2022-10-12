@@ -60,12 +60,12 @@ class PokemonAdapter(
 
                 tvNumber.text = "Nº ${item.formattedNumber}"
                 tvName.text = item.formattedName
-                tvType1.text = item.types[0].name.capitalize()
+                tvType1.text = item.types[0].name?.capitalize() ?: ""
                 tvType1.setBackgroundResource(item.types[0].mapColor())
 
                 if (item.types.size > 1) {
                     tvType2.visibility = View.VISIBLE
-                    tvType2.text = item.types[1].name.capitalize()
+                    tvType2.text = item.types[1].name?.capitalize() ?: ""
                     tvType2.setBackgroundResource(item.types[1].mapColor())
                 } else {
                     tvType2.visibility = View.GONE

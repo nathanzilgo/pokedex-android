@@ -3,7 +3,6 @@ package com.zilgo.pokedex
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.content.SharedPreferences.Editor
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.Menu
@@ -15,23 +14,19 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.edit
-import androidx.datastore.preferences.core.intPreferencesKey
-import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.zilgo.pokedex.domain.Pokemon
 import com.zilgo.pokedex.view.PokemonAdapter
-import com.zilgo.pokedex.view.PokemonDialogFragment
 import com.zilgo.pokedex.viewmodel.LoadingSpinner
 import com.zilgo.pokedex.viewmodel.PokemonViewModel
 import com.zilgo.pokedex.viewmodel.PokemonViewModelFactory
-import kotlinx.coroutines.flow.Flow
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
+import java.lang.reflect.Type
 
 class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener, View.OnClickListener {
 
@@ -45,7 +40,7 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener, View.O
         findViewById<ConstraintLayout>(R.id.progressBar)
     }
 
-    val sharedPref = getSharedPreferences("pokemons", AppCompatActivity.MODE_PRIVATE)
+//    val sharedPref = getSharedPreferences("pokemons", AppCompatActivity.MODE_PRIVATE)
 
     val loadingSpinner = LoadingSpinner(this)
 
@@ -62,11 +57,9 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener, View.O
             // Update the UI, in this case, a RecyclerView
             loadingSpinner.startLoading()
             loadRecyclerView(it)
-            if (viewModel.pokemons.value != null) {
+            viewModel.pokemons.value.let {
                 progressBar.visibility = View.GONE
                 loadingSpinner.dismiss()
-//               TODO: save sharedpreferences
-
             }
         }
 
@@ -154,45 +147,29 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener, View.O
     override fun onClick(p0: View?) {
         playOST()
     }
-
-    private suspend fun saveLocal(pokemons: List<Pokemon?>) {
-
-
-        val editor = sharedPref.edit()
-        val parser = Gson()
-        val json = parser.toJson(pokemons)
-        editor.putString("pokemons", json)
-        editor.apply()
-    }
-
-//    companion object {
-//        val sharedPreferences = getSharedPreferences
-//    }
-//    public final class SharePreferencesObject() {
-//        val sharedPref = getSharedPreferences("pokemons", AppCompatActivity.MODE_PRIVATE)
-//        val editor = sharedPref.edit()
-//        val parser = Gson()
-//        val json = parser.toJson(pokemons)
-//        editor.putString("pokemons", json)
-//        editor.apply()
-//    }
 }
 
 class Prefs (context: Context) {
 
-    private val POKEMONS_LIST = "pokemonsPref"
+    private val POKEMONS_LIST_KEY = "pokemonsPref"
 
-    private val preferences : SharedPreferences = context.getSharedPreferences(POKEMONS_LIST, Context.MODE_PRIVATE)
+    private val preferences : SharedPreferences = context.getSharedPreferences(POKEMONS_LIST_KEY, Context.MODE_PRIVATE)
 
-    var pokemons = mutableListOf<Pokemon>()
-    val parser = Gson()
+    var storedPokemons: List<Pokemon> = mutableListOf()
 
 //    val tinyDb = TinyDB(context)
     var stringJson: String
-        get() = preferences.getString(POKEMONS_LIST, null).toString()
-        set(value) = preferences.edit().putString(POKEMONS_LIST, stringJson).apply()
+        get() = preferences.getString(POKEMONS_LIST_KEY, null).toString()
+        set(value) = preferences.edit().putString(POKEMONS_LIST_KEY, value).apply()
 
-//    fun getPokemons() = parser.fromJson<Pokemon>(stringJson)
+    fun getPokemonList(): List<Pokemon> {
+        storedPokemons = Json.decodeFromString(stringJson)
+        return storedPokemons
+    }
+
+    fun storePokemons(pokemons: List<Pokemon>) {
+        val json = Json.encodeToString(pokemons)
+        prefs.stringJson = json
+        storedPokemons = pokemons
+    }
 }
-
-

@@ -4,6 +4,7 @@ buildscript {
     dependencies {
         classpath 'com.google.dagger:hilt-android-gradle-plugin:2.40.1'
         classpath "org.jetbrains.kotlin:kotlin-android-extensions:1.7.10"
+        classpath "org.jetbrains.kotlin:kotlin-serialization:1.7.10"
     }
     repositories {
         mavenCentral()
