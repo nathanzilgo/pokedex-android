@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.media.MediaPlayer
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -164,6 +165,7 @@ class Prefs (context: Context) {
 
     fun getPokemonList(): List<Pokemon> {
         storedPokemons = Json.decodeFromString(stringJson)
+        Log.d("Prefs", "Pokemon List gotten $storedPokemons")
         return storedPokemons
     }
 

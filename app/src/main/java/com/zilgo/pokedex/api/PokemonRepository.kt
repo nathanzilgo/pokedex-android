@@ -29,12 +29,12 @@ object PokemonRepository {
         return call.execute().body()
     }
 
-    fun getMove(url: String): Move? {
+    fun getMove(url: String): MoveApiResult? {
         val call = service.getMove(url)
         return call.execute().body()
     }
 
-    fun getAbility(url: String): Ability? {
+    fun getAbility(url: String): AbilityApiResult? {
         val call = service.getAbility(url)
         return call.execute().body()
     }

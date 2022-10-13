@@ -58,21 +58,24 @@ data class PokemonAbility(
             getAbility()
         }
     }
-
-    fun getAbility() {
+    private fun getAbility() {
         if (url?.isNotEmpty() == true) {
-            ability = url.let { PokemonRepository.getAbility(it) }
+            val apiResult = PokemonRepository.getAbility(url)
+            apiResult.let {
+                if (it != null) {
+                    this.ability = Ability(it.id, it.name, it.effect_entries)
+                }
+            }
         } else {
             Ability()
         }
-
     }
 }
 
 @kotlinx.serialization.Serializable
 @Parcelize
 data class Ability(
-    val id: String? = "",
+    val id: Int = Int.MIN_VALUE,
     val name: String? = "",
     val effect_entries: List<EffectEntry>? = mutableListOf()
 ) : Parcelable
@@ -113,14 +116,18 @@ data class PokemonMoveObject(
     val url: String? = "",
     var move: Move? = Move()
 ) : Parcelable {
-//    init {
-//        GlobalScope.launch {
-//            getMove()
-//        }
-//    }
-
-     fun getMove() {
-        move = url?.let { PokemonRepository.getMove(it) }
+    init {
+        GlobalScope.launch {
+            getMove()
+        }
+    }
+     private fun getMove() {
+        val apiResult = url?.let { PokemonRepository.getMove(it) }
+         apiResult.let {
+             if (it != null) {
+                 this.move = Move(it.id, it.accuracy, it.power, it.pp, it.name)
+             }
+         }
     }
 }
 
