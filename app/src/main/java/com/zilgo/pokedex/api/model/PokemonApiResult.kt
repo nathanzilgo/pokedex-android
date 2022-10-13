@@ -53,14 +53,19 @@ data class PokemonAbility(
     val url: String? = "",
     var ability: Ability? = Ability()
 ) : Parcelable {
-//    init {
-//        GlobalScope.launch {
-//            getAbility()
-//        }
-//    }
+    init {
+        GlobalScope.launch {
+            getAbility()
+        }
+    }
 
     fun getAbility() {
-        ability = url?.let { PokemonRepository.getAbility(it) }!!
+        if (url?.isNotEmpty() == true) {
+            ability = url.let { PokemonRepository.getAbility(it) }
+        } else {
+            Ability()
+        }
+
     }
 }
 

@@ -38,6 +38,7 @@ class PokemonAdapter(
             b.putString("weight", item?.formattedWeight)
             b.putString("image", item?.imageUrl)
             b.putParcelableArrayList("moves", ArrayList(item?.moves!!))
+            b.putParcelableArrayList("stats", ArrayList(item.stats))
 //            b.putParcelableArrayList("abilities", ArrayList(item.ability))
             intent.putExtra("pokemon", b)
             holder.itemView.context.startActivity(intent)

@@ -2,6 +2,7 @@ package com.zilgo.pokedex.viewmodel
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
@@ -35,6 +36,7 @@ class PokemonViewModel : ViewModel() {
         if (prefs.storedPokemons.isNotEmpty()) {
             pokemons.postValue(prefs.getPokemonList())
             pokemonsList = prefs.storedPokemons as MutableList<Pokemon>
+            Log.d("GetPrefsPokemonsList", prefs.storedPokemons.toString())
             return
         }
         val pokemonsListApiResult = PokemonRepository.listPokemons()
@@ -64,12 +66,13 @@ class PokemonViewModel : ViewModel() {
                         )
                     }
                 }
-            }.let { it1 ->
-                pokemons.postValue(it1 as List<Pokemon>?)
-                pokemonsList = it1 as MutableList<Pokemon>
+            }.let { pokemonsResult ->
+                pokemons.postValue(pokemonsResult as List<Pokemon>?)
+                pokemonsList = pokemonsResult as MutableList<Pokemon>
                 GlobalScope.launch {
-                    taskStorePokemons(it1)
+                    taskStorePokemons(pokemonsResult)
                 }
+                Log.d("LoadedPokemonsByApi", pokemonsResult.toString())
             }
         }
     }
