@@ -5,17 +5,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cvPokemon"
     android:layout_width="match_parent"
-    android:layout_height="350dp"
-    android:layout_marginStart="16dp"
-    android:layout_marginLeft="16dp"
-    android:layout_marginTop="16dp"
-    android:layout_marginEnd="16dp"
-    android:layout_marginRight="16dp"
-    app:cardCornerRadius="50dp"
-    app:cardElevation="50dp"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="9dp"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent">
+    app:layout_constraintTop_toTopOf="parent"
+    app:cardUseCompatPadding="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -76,6 +72,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginTop="8dp"
+            android:paddingBottom="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvName"
