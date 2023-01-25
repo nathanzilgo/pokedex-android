@@ -58,75 +58,82 @@
             android:layout_width="300dp"
             android:layout_marginTop="200dp"
             android:layout_centerHorizontal="true"
-            android:layout_height="140dp">
+            android:layout_height="110dp">
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:id="@+id/tvPokemonHP"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_gravity="start"
-                    android:drawableLeft="@drawable/ic_baseline_monitor_heart_24"
-                    android:text="HP: " />
-                <TextView
-                    android:layout_below="@id/tvPokemonHP"
-                    android:id="@+id/tvPokemonAttack"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_gravity="start"
-                    android:drawableLeft="@drawable/sword_icon"
-                    android:text="Attack:" />
-                <TextView
-                    android:layout_below="@id/tvPokemonAttack"
-                    android:id="@+id/tvPokemonDefense"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_gravity="start"
-                    android:drawableLeft="@drawable/ic_baseline_shield_24"
-                    android:text="Defense:" />
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+                <RelativeLayout
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/tvPokemonHP"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_gravity="start"
+                        android:drawableLeft="@drawable/ic_baseline_monitor_heart_24"
+                        android:text="HP: " />
+                    <TextView
+                        android:layout_below="@id/tvPokemonHP"
+                        android:id="@+id/tvPokemonAttack"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_gravity="start"
+                        android:drawableLeft="@drawable/sword_icon"
+                        android:text="Attack:" />
+                    <TextView
+                        android:layout_below="@id/tvPokemonAttack"
+                        android:id="@+id/tvPokemonDefense"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_gravity="start"
+                        android:drawableLeft="@drawable/ic_baseline_shield_24"
+                        android:text="Defense:" />
+                </RelativeLayout>
 
-                <TextView
-                    android:id="@+id/tvPokemonSpecialAttack"
-                    android:layout_below="@id/tvPokemonDefense"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_gravity="start"
-                    android:drawableLeft="@drawable/ic_baseline_star_purple500_24"
-                    android:text="Special Attack:" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:id="@+id/tvPokemonSpeed"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_gravity="start"
+                        android:drawableLeft="@drawable/ic_baseline_speed_24"
+                        android:text="Speed:" />
 
-                <TextView
-                    android:id="@+id/tvPokemonSpeed"
-                    android:layout_below="@id/tvPokemonSpecialAttack"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_gravity="start"
-                    android:text="Speed:" />
-                <TextView
-                    android:id="@+id/tvPokemonSpecialDefense"
-                    android:layout_below="@id/tvPokemonSpeed"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="start"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="10dp"
-                    android:text="Special Defense:" />
-            </RelativeLayout>
+                    <TextView
+                        android:id="@+id/tvPokemonSpecialAttack"
+                        android:layout_below="@id/tvPokemonSpeed"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_gravity="start"
+                        android:drawableLeft="@drawable/ic_baseline_star_purple500_24"
+                        android:text="Special Attack:" />
 
-
-
-
+                    <TextView
+                        android:id="@+id/tvPokemonSpecialDefense"
+                        android:layout_below="@id/tvPokemonSpecialAttack"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="10dp"
+                        android:drawableLeft="@drawable/ic_baseline_security_24"
+                        android:text="Special Defense:" />
+                </RelativeLayout>
+            </LinearLayout>
         </androidx.cardview.widget.CardView>
 
         <TextView
