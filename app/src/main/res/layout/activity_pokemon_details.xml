@@ -58,7 +58,7 @@
             android:layout_width="300dp"
             android:layout_marginTop="200dp"
             android:layout_centerHorizontal="true"
-            android:layout_height="120dp">
+            android:layout_height="140dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -70,6 +70,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginStart="8dp"
                     android:layout_gravity="start"
+                    android:drawableLeft="@drawable/ic_baseline_monitor_heart_24"
                     android:text="HP: " />
                 <TextView
                     android:layout_below="@id/tvPokemonHP"
@@ -79,6 +80,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginStart="8dp"
                     android:layout_gravity="start"
+                    android:drawableLeft="@drawable/sword_icon"
                     android:text="Attack:" />
                 <TextView
                     android:layout_below="@id/tvPokemonAttack"
@@ -88,6 +90,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginStart="8dp"
                     android:layout_gravity="start"
+                    android:drawableLeft="@drawable/ic_baseline_shield_24"
                     android:text="Defense:" />
 
                 <TextView
@@ -98,6 +101,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginStart="8dp"
                     android:layout_gravity="start"
+                    android:drawableLeft="@drawable/ic_baseline_star_purple500_24"
                     android:text="Special Attack:" />
 
                 <TextView
@@ -137,16 +141,19 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvMoves"
-            android:layout_below="@id/tvMoves"
-            android:layout_width="wrap_content"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:foregroundGravity="center"
-            android:layout_margin="15dp"
-            android:isScrollContainer="true"
-            android:scrollbars="vertical"
-            android:scrollbarAlwaysDrawVerticalTrack="true"
+            android:layout_below="@id/tvMoves"
             android:layout_centerHorizontal="true"
-            tools:listitem="@layout/move_button"/>
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="15dp"
+            android:foregroundGravity="center"
+            android:isScrollContainer="true"
+            android:scrollbarAlwaysDrawVerticalTrack="true"
+            android:scrollbars="vertical"
+            tools:listitem="@layout/move_button" />
 
     </RelativeLayout>
 </LinearLayout>

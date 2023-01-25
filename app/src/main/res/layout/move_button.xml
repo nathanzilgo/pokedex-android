@@ -9,6 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Tacckle: 80 Power | 10 pp"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/teal_200"
         />
 </FrameLayout>
