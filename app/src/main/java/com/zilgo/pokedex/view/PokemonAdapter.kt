@@ -1,13 +1,16 @@
 package com.zilgo.pokedex.view
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.zilgo.pokedex.R
@@ -49,6 +52,7 @@ class PokemonAdapter(
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
+        @RequiresApi(Build.VERSION_CODES.M)
         fun bindView(item: Pokemon?) = with(itemView) {
             val ivPokemon = findViewById<ImageView>(R.id.ivPokemon)
             val tvNumber = findViewById<TextView>(R.id.tvNumber)
@@ -63,11 +67,14 @@ class PokemonAdapter(
                 tvName.text = item.formattedName
                 tvType1.text = item.types[0].name?.capitalize() ?: ""
                 tvType1.setBackgroundResource(item.types[0].mapColor())
+                tvType1.setTextColor(ContextCompat.getColor(context,item.types[0].mapTextColor()))
+
 
                 if (item.types.size > 1) {
                     tvType2.visibility = View.VISIBLE
                     tvType2.text = item.types[1].name?.capitalize() ?: ""
                     tvType2.setBackgroundResource(item.types[1].mapColor())
+                    tvType2.setTextColor(ContextCompat.getColor(context,item.types[1].mapTextColor()))
                 } else {
                     tvType2.visibility = View.GONE
                 }

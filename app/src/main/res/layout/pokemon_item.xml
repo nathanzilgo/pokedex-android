@@ -14,11 +14,15 @@
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
     android:id="@+id/cvPokemon"
+    app:cardElevation="50dp"
+    app:cardBackgroundColor="@color/ice"
+    app:cardCornerRadius="50dp"
     android:outlineAmbientShadowColor="@color/black">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:outlineAmbientShadowColor="@color/black"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp">
 
@@ -38,11 +42,19 @@
             android:id="@+id/tvNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/steel"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textColorHint="@color/black"
+            android:textColorHighlight="@color/black"
             android:textSize="14sp"
+            android:shadowColor="@color/black"
+            android:textColorLink="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ivPokemon"
+            android:shadowDx="1.5"
+            android:shadowDy="1.3"
+            android:shadowRadius="1.6"
             tools:text="Nº 001" />
 
         <TextView
@@ -52,6 +64,10 @@
             android:layout_marginBottom="40dp"
             android:textColor="@color/black"
             android:textSize="24sp"
+            android:shadowDx="1.5"
+            android:shadowDy="1.3"
+            android:shadowRadius="1.6"
+            android:shadowColor="@color/white"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

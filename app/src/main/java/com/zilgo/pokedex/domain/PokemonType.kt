@@ -29,6 +29,13 @@ data class PokemonType (
             else -> R.color.white
         }
     }
+    fun mapTextColor(): Int {
+        return when (name?.lowercase()) {
+            "fire", "water", "dragon", "psychic",
+            "ghost", "poison" -> R.color.white
+            else -> R.color.black
+        }
+    }
 }
 
 @kotlinx.serialization.Serializable
