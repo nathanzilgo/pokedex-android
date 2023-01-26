@@ -1,12 +1,17 @@
 package com.zilgo.pokedex.domain
 
+import android.os.Parcelable
 import com.zilgo.pokedex.R
+import kotlinx.android.parcel.Parcelize
 
+@kotlinx.serialization.Serializable
+@Parcelize
 data class PokemonType (
-    val name: String
-) {
+    val name: String? = "",
+    val generation: List<PokemonGeneration>? = mutableListOf()
+) : Parcelable {
     fun mapColor(): Int {
-        return when (name.lowercase()) {
+        return when (name?.lowercase()) {
             "fire" -> R.color.fire
             "water" -> R.color.water
             "poison" -> R.color.poison
@@ -24,4 +29,18 @@ data class PokemonType (
             else -> R.color.white
         }
     }
+    fun mapTextColor(): Int {
+        return when (name?.lowercase()) {
+            "fire", "water", "dragon", "psychic",
+            "ghost", "poison" -> R.color.white
+            else -> R.color.black
+        }
+    }
 }
+
+@kotlinx.serialization.Serializable
+@Parcelize
+data class PokemonGeneration(
+    val name: String? = "",
+    val url: String? = ""
+) : Parcelable

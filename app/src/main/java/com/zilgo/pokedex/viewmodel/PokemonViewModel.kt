@@ -1,14 +1,23 @@
 package com.zilgo.pokedex.viewmodel
 
-import android.widget.LinearLayout
-import android.widget.ProgressBar
+import android.content.Context
+import android.content.SharedPreferences
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.zilgo.pokedex.api.PokemonRepository
 import com.zilgo.pokedex.domain.Pokemon
 import com.zilgo.pokedex.domain.PokemonType
-import java.security.Provider
+import com.zilgo.pokedex.prefs
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.launch
 
 class PokemonViewModel : ViewModel() {
 
@@ -21,32 +30,55 @@ class PokemonViewModel : ViewModel() {
         }).start()
     }
 
+    @OptIn(DelicateCoroutinesApi::class)
     private fun loadPokemons() {
 
-        val pokemonsApiResult = PokemonRepository.listPokemons()
+        if (prefs.storedPokemons.isNotEmpty()) {
+            pokemons.postValue(prefs.getPokemonList())
+            pokemonsList = prefs.storedPokemons as MutableList<Pokemon>
+            Log.d("GetPrefsPokemonsList", prefs.storedPokemons.toString())
+            return
+        }
+        val pokemonsListApiResult = PokemonRepository.listPokemons()
 
-        pokemonsApiResult?.results?.let {
+        pokemonsListApiResult?.results?.let {
             it.map { pokemonResult ->
-                val number = pokemonResult.url
+                // ID:
+                val id = pokemonResult.url
                     .replace("https://pokeapi.co/api/v2/pokemon/", "")
                     .replace("/", "").toInt()
 
-                val pokemonApiResult = PokemonRepository.getPokemon(number)
+                // Pega o pokemon pelo ID
+                val pokemonApiResult = PokemonRepository.getPokemon(id)
 
-                pokemonApiResult?.let {
-                    Pokemon(
-                        pokemonApiResult.id,
-                        pokemonApiResult.name,
-                        pokemonApiResult.types.map { type ->
-                            type.type
-                        }
-                    )
+                pokemonApiResult?.let { apiResult ->
+                    apiResult.types.map { type ->
+                        type.type
+                    }.let { it1 ->
+                        Pokemon(
+                            apiResult.id,
+                            apiResult.name,
+                            it1 as List<PokemonType>,
+                            apiResult.abilities,
+                            apiResult.weight,
+                            apiResult.moves,
+                            apiResult.stats,
+                        )
+                    }
                 }
-            }.let { it1 ->
-                pokemons.postValue(it1 as List<Pokemon>?)
-                pokemonsList = it1 as MutableList<Pokemon>
+            }.let { pokemonsResult ->
+                pokemons.postValue(pokemonsResult as List<Pokemon>?)
+                pokemonsList = pokemonsResult as MutableList<Pokemon>
+                GlobalScope.launch {
+                    taskStorePokemons(pokemonsResult)
+                }
+                Log.d("LoadedPokemonsByApi", pokemonsResult.toString())
             }
         }
+    }
+
+    suspend fun taskStorePokemons(pokemons: List<Pokemon>) {
+        prefs.storePokemons(pokemons)
     }
 
     fun searchPokemons(searchQuery: String) {

@@ -1,8 +1,11 @@
 package com.zilgo.pokedex
 
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.media.MediaPlayer
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -15,12 +18,16 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.reflect.TypeToken
 import com.zilgo.pokedex.domain.Pokemon
 import com.zilgo.pokedex.view.PokemonAdapter
 import com.zilgo.pokedex.viewmodel.LoadingSpinner
 import com.zilgo.pokedex.viewmodel.PokemonViewModel
 import com.zilgo.pokedex.viewmodel.PokemonViewModelFactory
-
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
+import java.lang.reflect.Type
 
 class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener, View.OnClickListener {
 
@@ -34,6 +41,8 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener, View.O
         findViewById<ConstraintLayout>(R.id.progressBar)
     }
 
+//    val sharedPref = getSharedPreferences("pokemons", AppCompatActivity.MODE_PRIVATE)
+
     val loadingSpinner = LoadingSpinner(this)
 
     private val viewModel by lazy {
@@ -44,17 +53,21 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener, View.O
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         // Create the observer which updated the UI
         viewModel.pokemons.observe(this) {
             // Update the UI, in this case, a RecyclerView
             loadingSpinner.startLoading()
             loadRecyclerView(it)
-            if (viewModel.pokemons.value != null) {
+            viewModel.pokemons.value.let {
                 progressBar.visibility = View.GONE
                 loadingSpinner.dismiss()
             }
         }
+
+        appContext = this.baseContext
+    }
+    companion object {
+        lateinit  var appContext: Context
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -82,16 +95,10 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener, View.O
         }
     }
 
-    private fun playOST(view: MainActivity) {
-        if (mediaPlayer == null) {
-            mediaPlayer = MediaPlayer.create(this, R.raw.pokemon_ost)
-        }
-        mediaPlayer?.start()
-    }
-
     private fun loadRecyclerView(pokemons: List<Pokemon?>) {
+        val adapter = PokemonAdapter(pokemons as List<Pokemon>)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = PokemonAdapter(pokemons as List<Pokemon>)
+        recyclerView.adapter = adapter
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {
@@ -140,5 +147,31 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener, View.O
 
     override fun onClick(p0: View?) {
         playOST()
+    }
+}
+
+class Prefs (context: Context) {
+
+    private val POKEMONS_LIST_KEY = "pokemonsPref"
+
+    private val preferences : SharedPreferences = context.getSharedPreferences(POKEMONS_LIST_KEY, Context.MODE_PRIVATE)
+
+    var storedPokemons: List<Pokemon> = mutableListOf()
+
+//    val tinyDb = TinyDB(context)
+    var stringJson: String
+        get() = preferences.getString(POKEMONS_LIST_KEY, null).toString()
+        set(value) = preferences.edit().putString(POKEMONS_LIST_KEY, value).apply()
+
+    fun getPokemonList(): List<Pokemon> {
+        storedPokemons = Json.decodeFromString(stringJson)
+        Log.d("Prefs", "Pokemon List gotten $storedPokemons")
+        return storedPokemons
+    }
+
+    fun storePokemons(pokemons: List<Pokemon>) {
+        val json = Json.encodeToString(pokemons)
+        prefs.stringJson = json
+        storedPokemons = pokemons
     }
 }
